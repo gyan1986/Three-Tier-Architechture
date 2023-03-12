@@ -1,5 +1,6 @@
 name: GithubActionsPipeline
 on: [push]
+environment: prod
 
 jobs:
   terraform_plan:
