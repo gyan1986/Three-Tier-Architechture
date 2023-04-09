@@ -11,10 +11,14 @@ resource "aws_lb_target_group" "target-elb" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc01.id
+
+  health_check {
+    path = "/wp-admin/setup-config.php"
+  }
 }
 
 resource "aws_lb_target_group_attachment" "attachment" {
-  count            = 2
+  count            = 1
   target_group_arn = aws_lb_target_group.target-elb.arn
   target_id        = aws_instance.web[count.index].id
   port             = 80
