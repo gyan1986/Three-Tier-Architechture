@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "target-elb" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "attachment" {
+/*resource "aws_lb_target_group_attachment" "attachment" {
   count            = 1
   target_group_arn = aws_lb_target_group.target-elb.arn
   target_id        = aws_instance.web[count.index].id
@@ -25,7 +25,7 @@ resource "aws_lb_target_group_attachment" "attachment" {
   depends_on = [
     aws_instance.web,
   ]
-}
+}*/
 
 resource "aws_lb_listener" "external-elb" {
   load_balancer_arn = aws_lb.alb.arn
