@@ -13,7 +13,7 @@ resource "aws_db_instance" "rds01" {
   availability_zone      = "eu-west-2a"
   engine                 = "mysql"
   engine_version         = "5.7"
-  name                   = "mydb"
+  db_name                = "mydb"
   username               = "admin"
   password               = random_password.rds_password.result
   skip_final_snapshot    = true
