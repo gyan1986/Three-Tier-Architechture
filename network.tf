@@ -18,7 +18,7 @@ resource "aws_internet_gateway" "intgw01" {
 resource "aws_subnet" "public01" {
   vpc_id                  = aws_vpc.vpc01.id
   cidr_block              = var.public_subnet1
-  availability_zone       = "eu-west-2a"
+  availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = true
   depends_on = [
     aws_internet_gateway.intgw01
@@ -31,7 +31,7 @@ resource "aws_subnet" "public01" {
 resource "aws_subnet" "public02" {
   vpc_id                  = aws_vpc.vpc01.id
   cidr_block              = var.public_subnet2
-  availability_zone       = "eu-west-2b"
+  availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = true
   depends_on = [
     aws_internet_gateway.intgw01
@@ -87,7 +87,7 @@ resource "aws_nat_gateway" "natgw" {
 resource "aws_subnet" "private01" {
   vpc_id                  = aws_vpc.vpc01.id
   cidr_block              = var.private_subnet1
-  availability_zone       = "eu-west-2a"
+  availability_zone       = "ap-south-1b"
   map_public_ip_on_launch = false
   depends_on = [
     aws_nat_gateway.natgw
@@ -100,7 +100,7 @@ resource "aws_subnet" "private01" {
 resource "aws_subnet" "private02" {
   vpc_id                  = aws_vpc.vpc01.id
   cidr_block              = var.private_subnet2
-  availability_zone       = "eu-west-2b"
+  availability_zone       = "ap-south-1a"
   map_public_ip_on_launch = false
   depends_on = [
     aws_nat_gateway.natgw

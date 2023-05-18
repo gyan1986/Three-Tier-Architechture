@@ -1,10 +1,10 @@
 resource "aws_launch_configuration" "web-lc" {
   name_prefix                = "web-lc-"
-  image_id                   = "ami-061fbd84f343c52d5"
+  image_id                   = "ami-0b08bfc6ff7069aff"
   instance_type              = "t2.micro"
+    key_name                   = "terraform_key_pair"
   security_groups            = [aws_security_group.web_sg.id]
-  key_name                   = "web_keypair"
-  user_data = templatefile("user_data.sh", {
+     user_data = templatefile("user_data.sh", {
     rds_endpoint = jsondecode(data.aws_secretsmanager_secret_version.rds.secret_string)["endpoint"]
     rds_password = jsondecode(data.aws_secretsmanager_secret_version.rds.secret_string)["password"]
   })
@@ -51,9 +51,9 @@ resource "aws_autoscaling_policy" "web-scaling" {
 
 /*resource "aws_instance" "web" {
   count                       = 1
-  ami                         = "ami-061fbd84f343c52d5"
+  ami                         = "ami-0b08bfc6ff7069aff"
   instance_type               = "t2.micro"
-  key_name                    = "web_keypair"
+  key_name                   = "terraform_key_pair"
   vpc_security_group_ids      = [aws_security_group.web_sg.id]
   subnet_id                   = count.index == 0 ? aws_subnet.private01.id : aws_subnet.private02.id
   #associate_public_ip_address = true
@@ -71,10 +71,10 @@ resource "aws_autoscaling_policy" "web-scaling" {
 }*/
 
 resource "aws_instance" "jumpbox" {
-  ami                         = "ami-0b3053411345882ee"
+  ami                         = "ami-0b08bfc6ff7069aff"
   instance_type               = "t2.small"
-  key_name                    = "web_keypair"
-  vpc_security_group_ids      = [aws_security_group.web_sg_public.id]
+  key_name                   = "terraform_key_pair"
+   vpc_security_group_ids      = [aws_security_group.web_sg_public.id]
   subnet_id                   = aws_subnet.public01.id
   associate_public_ip_address = true
   tags = {

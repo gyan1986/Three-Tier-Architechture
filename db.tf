@@ -10,7 +10,7 @@ resource "aws_db_instance" "rds01" {
   depends_on             = [aws_db_subnet_group.public]
   instance_class         = "db.t2.micro"
   allocated_storage      = 10
-  availability_zone      = "eu-west-2a"
+  availability_zone      = "ap-south-1a"
   engine                 = "mysql"
   engine_version         = "5.7"
   db_name                = "mydb"
